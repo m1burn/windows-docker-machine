@@ -343,3 +343,14 @@ Start-Service docker
 
 Write-Host "Opening Docker TLS port"
 & netsh advfirewall firewall add rule name="Docker TLS" dir=in action=allow protocol=TCP localport=2376
+& netsh advfirewall firewall add rule name="Docker Swarm TCP" dir=in action=allow protocol=TCP localport=7946
+& netsh advfirewall firewall add rule name="Docker Swarm UDP" dir=in action=allow protocol=UDP localport=7946
+& netsh advfirewall firewall add rule name="Docker Swarm Overlay Network" dir=in action=allow protocol=UDP localport=4789
+
+Write-Host "Install Telnet"
+& dism /online /Enable-Feature /FeatureName:TelnetClient
+
+Write-Host "Install OpenSSH Server"
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+Set-Service -Name sshd -StartupType 'Automatic'
+Start-Service sshd

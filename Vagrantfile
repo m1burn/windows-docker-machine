@@ -54,6 +54,7 @@ Vagrant.configure("2") do |config|
     cfg.vm.provider "virtualbox" do |v, override|
       override.vm.network :private_network, ip: "192.168.59.51", gateway: "192.168.56.1"
     end
+    cfg.vm.network "forwarded_port", guest: 4201, host: 4201
   end
 
   config.vm.define "2022", autostart: false do |cfg|
