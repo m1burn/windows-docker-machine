@@ -354,3 +354,8 @@ Write-Host "Install OpenSSH Server"
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 Set-Service -Name sshd -StartupType 'Automatic'
 Start-Service sshd
+
+Write-Host "Pull & Build Docker images"
+docker pull mcr.microsoft.com/dotnet/framework/aspnet:4.8
+docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8
+docker build -t hok_runtime $env:USERPROFILE\hok_runtime
